@@ -4,22 +4,7 @@
     
     {% block body %}
     
-    <form method ="post">
-        <table>
-            <tr>
-                <td> Loan Balance: </td> <td> <input type="text" name="loanAmt" /> </td>
-            </tr>
-            <tr>
-                <td> Number of periodic payments: </td> <td> <input type="text" name="payments" /> </td>
-            </tr>
-            <tr>
-                <td> Periodic interest rate (Decimal form): </td> <td> <input type="text" name="interest" /> </td>
-        </table>
-            <br>
-        <input class="button" type="submit" formaction="/calculate" value="Calculate" />
-    </form>
+    Hello world!
     
-    <p> Periodic Loan Payment: {{ display }} </p>
-    <div style="clear:both;"></div>
     
     {% endblock %}
