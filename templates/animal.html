@@ -18,19 +18,21 @@
    </div>
 
 
-
-
-  <form method="POST" action="">
+{% if form %}
+  <form method="POST">
 
     {{ form.csrf_token }}
-    {{ form.Name.label }} {{ form.Name(size = 20) }}
-    {{ form.Country.label }} {{ form.Country(size = 20) }}
-    {{ form.Weight.label }} {{ form.Weight(size = 20) }}
-    {{ form.Quantity.label }} {{ form.Quantity(size = 20) }}
+    {{ form.Name.label }} {{ form.Name }}
+    {{ form.Country.label }} {{ form.Country }}
+    {{ form.Weight.label }} {{ form.Weight }}
+    {{ form.Quantity.label }} {{ form.Quantity }}
 
-    <input type="submit" value="Save">
+    <input type="submit" formaction="{{url_for('update_animal', animal_id=form.animalID)}}" value="Update">
+    <input type="submit" formaction="{{url_for('delete_animal', animal_id=form.animalID)}}" value="Delete">
+
+
 
   </form>
-
+{% endif %}
 </div>
 {% endblock %}
