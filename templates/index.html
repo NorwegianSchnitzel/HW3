@@ -3,8 +3,31 @@
     {% extends 'base.html' %}
     
     {% block body %}
-    
-    Hello world!
-    
-    
+    <p> <a href="{{ url_for('.add_animal')}}"> Add a new animal </a> </p>
+    {% if animals %}
+        <table>
+            <thead>
+                <tr>
+                    <th>animalID</th>
+                    <th>Name</th>
+                    <th>Country</th>
+                    <th>Weight</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for row in animals %}
+                <tr>
+                    <td> {{ row.animalID }} </td>
+                    <td> {{ row.Name }} </td>
+                    <td> {{ row.Country }} </td>
+                    <td> {{ row.Weight }} </td>
+                    <td> {{ row.Quantity }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
     {% endblock %}
+    
