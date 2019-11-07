@@ -1,24 +1,29 @@
 from flask import Flask
-from flask import render_template, request, redirect
+from flask import render_template
+from flask_wtf import FlaskForm
+from wtforms import StringField
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = 'SuperSecretKey'
+
+class AnimalsForm(FlaskForm):
+    Name = StringField('Animal Name:', validators=[DataRequired()])
+    Country = StringField('Country:', validators = [DataRequired()])
+    
 
 @app.route('/')
 def index():
-    return render_template('index.html', display="", pageTitle = 'Loan Calculator')
+    return render_template('index.html', display="", pageTitle = 'Eric\'s Animals')
 
-@app.route('/calculate', methods=['GET', 'POST'])
-def loan():
-    if request.method == 'POST':
-        form = request.form
-        loan = float(form['loanAmt'])
-        payments = int(form['payments'])
-        interest = float(form['interest'])
-        discountFactor = (((1 + interest)**payments) - 1) / (interest*(1 + interest)**payments)
-        loanPayment = round(loan/discountFactor, 2)
-        return render_template('index.html', display=loanPayment, pageTitle='Loan Calculator')
-        
-    return redirect("/")
+@app.route('/add_animal', methods =['GET', 'POST'])
+def add_animal():
+    form = AnimalsForm()
+    if form.validate_on_submit():
+        return "<h2> The animal is {0} from {1}".format(form.Name.data, form.Country.data)
+    
+    return render_template('add_animal.html', form=form, pageTitle='Add a New Animal')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
