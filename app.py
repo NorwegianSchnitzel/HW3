@@ -49,6 +49,21 @@ def index():
     all_animals = ewestby_animalsapp.query.all()
     return render_template('index.html', animals = all_animals, pageTitle = 'Eric\'s Animals')
 
+@app.oute('/search', methods=['GET', 'POST'])
+def search():
+        if request.method == 'Post':
+            print('post method')
+            form = request.form
+            search_value = form['search_string']
+            print(search_value)
+            search = "%{0}%".format(search_value)
+            print(search)
+            results = ewestby_animalsapp.query.filter(ewestby_animalsapp.Name.like(search)).all()
+            print(results)
+            return render_template('index.html', animals=results, pageTitle='Eric\'s Animals', legend="Search Results")
+        else:
+            return redirect('/')
+
 @app.route('/animal/new', methods =['GET', 'POST'])
 def add_animal():
     form = AnimalForm()
